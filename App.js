@@ -1,8 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native'
+import { Header, Tile, Image } from 'react-native-elements';
+// import { useFonts, Courgette_400Regular } from '@expo-google-fonts/inter';
 
 export default function App() {
+  // let [fontsLoaded] = useFonts({
+  //   Courgette_400Regular,
+  // });
    
   const apiUrl = 'http://localhost:3000/todolist'
   const [task, setTask] = useState('')
@@ -58,81 +63,56 @@ export default function App() {
       })
   }
 
+  // if (!fontsLoaded) {
+  //   return <AppLoading />;
+  // }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>ToDo List</Text>
-          <FlatList 
-            data={todoList}
-            renderItem={({item, index}) => (
-                <View style={styles.items}>
-                  <Button 
-                  title="-"
-                  onPress={() => deleteTask(item.id)}
-                  />
-                  <TouchableOpacity onPress={() => updateTask(item.id, item.task, item.done)}>
-                    <Text
-                    style={item.done ? styles.strikeThrough : styles.itemText}
-                    >{item.task}</Text>
-                  </TouchableOpacity>
-               </View>
-            )}
-            />
-          <View style={styles.input}>     
-            <TextInput
-            style={styles.inputText}
-            autoCapitalize="sentences"
-            defaultValue="Add task here"
-            onChangeText={text => setTask(text)}
-            value={task} />
-            <Button
-            title="+"
-            onPress={addTask}
-          />
-          </View>  
+    <View>
+      <Header 
+      centerComponent={{ text: 'Enchanted Orchid Pub'}}
+      containerStyle={{
+      backgroundColor: '#48484C',
+      justifyContent: 'space-around',
+      }}
+      />
+      <Tile
+        imageSrc={require('./assets/images/jay-wennington-N_Y88TWmGwA-unsplash.jpg')}
+        imageContainerStyle={styles.tileImage}
+        title="Costumers"
+        titleStyle={styles.textWithShadow}
+        height={257}
+        featured
+      />
+       <Tile
+        imageSrc={require('./assets/images/photo-1575672401756-206fe7a54513.jpg')}
+        imageContainerStyle={styles.tileImage}
+        title="Chefs"
+        titleStyle={styles.textWithShadow}
+        height={257}
+        featured
+      />
       <StatusBar style="auto" />
     </View>
   );
 }
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 3, 
-    padding: 20
+  textWithShadow:{
+    height: 40,
+    width: 120,
+    borderWidth: 2,
+    borderColor: "#FFFFFF",
+    borderRadius: 6,
+    // backgroundColor: "#141414",
+    color: "#FFFFFF",
+    textAlign: "center",
+    fontSize: 30,
   },
-  items: {
-    height: 10,
-    width: 200,
-    marginBottom: 30,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  title: {
-    margin: 3,
-    padding: 5,
-    fontSize: 50,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  
-  input:{
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  inputText: {
-    height: 40, 
-    borderColor: 'gray', 
-    borderWidth: 1,
-  },
-  itemText: {
-    marginLeft: 10,
-    fontSize: 20,
-  },
-  strikeThrough: {
-    marginLeft: 10,
-    fontSize: 20,
-    textDecorationLine: 'line-through'
+  tileImage:{
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    borderColor: "#FFFFFF",
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: "#FFFFFF",
   }
 });

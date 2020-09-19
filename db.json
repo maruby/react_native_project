@@ -1,0 +1,9 @@
+{
+  "menu": [
+    {"id": "1",
+    "dish": "adobo",
+    "price": "24",
+    "rating": "5/5"
+    }
+  ]
+}

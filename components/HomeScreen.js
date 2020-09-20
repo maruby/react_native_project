@@ -6,7 +6,7 @@ import { Header, Tile } from 'react-native-elements';
 
 // import { useFonts, Courgette_400Regular } from '@expo-google-fonts/inter';
 
-export default HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation }) => {
   // let [fontsLoaded] = useFonts({
   //   Courgette_400Regular,
   // });
@@ -71,13 +71,6 @@ export default HomeScreen = ({ navigation }) => {
 
   return (
     <View>
-        <Header 
-        centerComponent={{ text: 'Enchanted Orchid Pub'}}
-        containerStyle={{
-        backgroundColor: '#48484C',
-        justifyContent: 'space-around',
-        }}
-        />
         <Tile
             imageSrc={require('../assets/images/jay-wennington-N_Y88TWmGwA-unsplash.jpg')}
             imageContainerStyle={styles.tileImage}
@@ -93,7 +86,7 @@ export default HomeScreen = ({ navigation }) => {
             title="Chefs"
             titleStyle={styles.textWithShadow}
             height={257}
-            onPress={() => navigation.navigate('Costumer')}
+            onPress={() => navigation.navigate('Chef')}
             featured
         />
         <StatusBar style="auto" />
@@ -119,3 +112,5 @@ const styles = StyleSheet.create({
     borderColor: "#FFFFFF",
   }
 });
+
+export default HomeScreen

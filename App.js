@@ -1,118 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native'
-import { Header, Tile, Image } from 'react-native-elements';
-// import { useFonts, Courgette_400Regular } from '@expo-google-fonts/inter';
+import 'react-native-gesture-handler';
+// import { StatusBar } from 'expo-status-bar';
+// import React from 'react';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
 
-export default function App() {
-  // let [fontsLoaded] = useFonts({
-  //   Courgette_400Regular,
-  // });
-   
-  const apiUrl = 'http://localhost:3000/todolist'
-  const [task, setTask] = useState('')
-  const [todoList, setTodoList] = useState()
+// import HomeScreen from './components/HomeScreen'
 
-   useEffect(() => {
-      fetch(apiUrl)
-      .then((response) => response.json())
-      .then((json) => {
-        setTodoList(json);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [todoList])
+// const Stack = createStackNavigator();
+// export default function App() {
 
-  const addTask = () => {
-    fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        task: task,
-        done: false
-      })
-    })
-    setTask("")
-  }
+//   return (
+//     <NavigationContainer>
+//       <Stack.Navigator>
+//         <Stack.Screen name="Home" component={HomeScreen} />
+//         {/* <Stack.Screen name="Costumer" component={CustomerScreen} />
+//         <Stack.Screen name="Chef" component={ChefScreen} /> */}
+//       </Stack.Navigator>
+//       <StatusBar style="auto" />
+//     </NavigationContainer>
+    
+//   );
+// }
+import * as React from 'react';
+import { View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-  const updateTask = (id, task, done) => {
-    fetch(`${apiUrl}/${id}`,{
-      method: 'PUT', 
-      headers: {
-       'Content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        task: task,
-        done: !done
-      }) 
-      }
-    )
-   }
 
-  const deleteTask = (id) => {
-      fetch(`${apiUrl}/${id}`, {
-        method: 'DELETE',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-      })
-  }
-
-  // if (!fontsLoaded) {
-  //   return <AppLoading />;
-  // }
-
+function HomeScreen() {
   return (
-    <View>
-      <Header 
-      centerComponent={{ text: 'Enchanted Orchid Pub'}}
-      containerStyle={{
-      backgroundColor: '#48484C',
-      justifyContent: 'space-around',
-      }}
-      />
-      <Tile
-        imageSrc={require('./assets/images/jay-wennington-N_Y88TWmGwA-unsplash.jpg')}
-        imageContainerStyle={styles.tileImage}
-        title="Costumers"
-        titleStyle={styles.textWithShadow}
-        height={257}
-        featured
-      />
-       <Tile
-        imageSrc={require('./assets/images/photo-1575672401756-206fe7a54513.jpg')}
-        imageContainerStyle={styles.tileImage}
-        title="Chefs"
-        titleStyle={styles.textWithShadow}
-        height={257}
-        featured
-      />
-      <StatusBar style="auto" />
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
     </View>
   );
 }
-const styles = StyleSheet.create({
-  textWithShadow:{
-    height: 40,
-    width: 120,
-    borderWidth: 2,
-    borderColor: "#FFFFFF",
-    borderRadius: 6,
-    // backgroundColor: "#141414",
-    color: "#FFFFFF",
-    textAlign: "center",
-    fontSize: 30,
-  },
-  tileImage:{
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    borderColor: "#FFFFFF",
-    borderRadius: 6,
-    borderWidth: 2,
-    borderColor: "#FFFFFF",
-  }
-});
+
+const Stack = createStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;

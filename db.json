@@ -1,9 +1,22 @@
 {
   "menu": [
-    {"id": "1",
-    "dish": "adobo",
-    "price": "24",
-    "rating": "5/5"
+    {
+      "dish": "Adobo",
+      "price": 25,
+      "rating": 4,
+      "id": 4
+    },
+    {
+      "dish": "CALDERETA",
+      "price": "45",
+      "rating": 5,
+      "id": 6
+    },
+    {
+      "dish": "TINOLA",
+      "price": "65",
+      "rating": "",
+      "id": 7
     }
   ]
 }

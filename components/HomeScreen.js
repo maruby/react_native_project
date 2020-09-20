@@ -2,82 +2,19 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native'
-import { Header, Tile } from 'react-native-elements';
+import {  Tile } from 'react-native-elements';
 
-// import { useFonts, Courgette_400Regular } from '@expo-google-fonts/inter';
-
-const HomeScreen = ({ navigation }) => {
-  // let [fontsLoaded] = useFonts({
-  //   Courgette_400Regular,
-  // });
-
-  const apiUrl = 'http://localhost:3000/todolist'
-  const [task, setTask] = useState('')
-  const [todoList, setTodoList] = useState()
-
-   useEffect(() => {
-      fetch(apiUrl)
-      .then((response) => response.json())
-      .then((json) => {
-        setTodoList(json);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [todoList])
-
-  const addTask = () => {
-    fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        task: task,
-        done: false
-      })
-    })
-    setTask("")
-  }
-
-  const updateTask = (id, task, done) => {
-    fetch(`${apiUrl}/${id}`,{
-      method: 'PUT', 
-      headers: {
-       'Content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        task: task,
-        done: !done
-      }) 
-      }
-    )
-   }
-
-  const deleteTask = (id) => {
-      fetch(`${apiUrl}/${id}`, {
-        method: 'DELETE',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-      })
-  }
-
-  // if (!fontsLoaded) {
-  //   return <AppLoading />;
-  // }
-
+const HomeScreen = ({ navigation, menu, setFetch }) => {
+  
   return (
     <View>
         <Tile
             imageSrc={require('../assets/images/jay-wennington-N_Y88TWmGwA-unsplash.jpg')}
             imageContainerStyle={styles.tileImage}
-            title="Costumers"
+            title="Customers"
             titleStyle={styles.textWithShadow}
             height={257}
-            onPress={() => navigation.navigate('Costumer')}
+            onPress={() => navigation.navigate('Customer', {menu: menu, setFetch: setFetch})}
             featured
         />
         <Tile
@@ -86,7 +23,7 @@ const HomeScreen = ({ navigation }) => {
             title="Chefs"
             titleStyle={styles.textWithShadow}
             height={257}
-            onPress={() => navigation.navigate('Chef')}
+            onPress={() => navigation.navigate('Chef', {menu: menu, setFetch: setFetch})}
             featured
         />
         <StatusBar style="auto" />

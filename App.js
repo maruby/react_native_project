@@ -1,16 +1,38 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import HomeScreen from './components/HomeScreen';
-import CostumerScreen from './components/CostumerScreen';
+import CustomerScreen from './components/CustomerScreen';
 import ChefScreen from './components/ChefScreen';
 
 const Stack = createStackNavigator();
 export default function App() {
+  const apiUrl = 'http://localhost:3000/menu'
+  const [fetchMenu, setFetch] = useState(false)
+  const [menu, setMenu] = useState()
 
+  useEffect(()=>{
+    setFetch(true)
+  }, [])
+
+  useEffect(() => {
+      if(fetchMenu){
+        fetch(apiUrl)
+        .then((response) => response.json())
+        .then((json) => {
+          setMenu(json);
+          setFetch(false)
+          console.log("Fetched in App JS")
+        })
+        .catch((error) => {
+          console.error(error);
+      });
+      }
+    }
+  )
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -25,39 +47,16 @@ export default function App() {
           },
         }}
       >
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Costumer" component={CostumerScreen} />
-        <Stack.Screen name="Chef" component={ChefScreen} />
+        <Stack.Screen name="Home">
+          {props => <HomeScreen {...props} menu={menu} setFetch={setFetch}/>}
+        </Stack.Screen>
+        <Stack.Screen name="Customer" component={CustomerScreen}>
+        </Stack.Screen>
+        <Stack.Screen name="Chef" component={ChefScreen}>
+        </Stack.Screen>
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
     
   );
 }
-// import * as React from 'react';
-// import { View, Text } from 'react-native';
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createStackNavigator } from '@react-navigation/stack';
-
-
-// function HomeScreen() {
-//   return (
-//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//       <Text>Home Screen</Text>
-//     </View>
-//   );
-// }
-
-// const Stack = createStackNavigator();
-
-// function App() {
-//   return (
-//     <NavigationContainer>
-//       <Stack.Navigator>
-//         <Stack.Screen name="Home" component={HomeScreen} />
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// }
-
-// export default App;

@@ -3,7 +3,7 @@ import { StyleSheet ,View, Text, Image, ImageBackground, FlatList, TextInput  } 
 import { Rating, Card } from 'react-native-elements';
 
 const CustomerScreen = ({route}) => {
-  const { menu } = route.params
+  const { menu, setFetch } = route.params
   const apiUrl = 'http://localhost:3000/menu'
   const bgImage = require('../assets/images/wooden_texture.jpg')
 
@@ -22,6 +22,7 @@ const CustomerScreen = ({route}) => {
         rating: rating
       })
     })
+    setFetch(true)
   }
 
 
@@ -40,7 +41,7 @@ const CustomerScreen = ({route}) => {
                   <View style={styles.subtitleWrapper}>
                     <Text style={{fontSize: 20, fontWeight: "bold"}}>{item.price} PHP</Text>
                     <Rating 
-                      startingValue={3}
+                      startingValue={item.rating !== "" ? item.rating : 3}
                       ratingCount={5}
                       imageSize={20}
                       onFinishRating={(rating) => updateRatings(item.id, item.dish, item.price, rating)}
